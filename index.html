@@ -310,6 +310,18 @@
         <img src="foto_divulgacao_2.webp" alt="Sustentabilidade">
       </div>
     </div>
+    <div class="gallery zoom-in">
+      <div class="gallery-track">
+        <img src="foto_divulgacao_2.webp" alt="Reciclagem">
+        <img src="93f936603d6b113b1592a00aaa359fec_16503099427267_194255897.jpg" alt="Natureza">
+        <img src="images.jfif" alt="Energia Renovável">
+        <img src="images (1).jfif" alt="Sustentabilidade">
+        <img src="poluicao-hidrica.webp" alt="Reciclagem">
+        <img src="images (2).jfif" alt="Natureza">
+        <img src="coletaseletiva-cke.webp" alt="Energia Renovável">
+        <img src="foto_divulgacao_2.webp" alt="Sustentabilidade">
+      </div>
+    </div>
 
     <!-- Linha do Tempo Interativa -->
     <h2 class="fade-in">Linha do Tempo Ambiental</h2>
@@ -449,8 +461,47 @@
         result.innerText = correct ? "✅ Acertou! Bom trabalho!" : "❌ Ops, tente outra lixeira!";
       });
     });
+    const track = document.querySelector(".gallery-track");
+let isDown = false;
+let startX;
+let scrollLeft;
+
+track.addEventListener("mousedown", e => {
+  isDown = true;
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.animationPlayState = 'paused'; // pausa animação enquanto arrasta
+});
+
+track.addEventListener("mouseleave", () => { isDown = false; track.style.animationPlayState = 'running'; });
+track.addEventListener("mouseup", () => { isDown = false; track.style.animationPlayState = 'running'; });
+track.addEventListener("mousemove", e => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  const walk = (x - startX); // diferença do movimento
+  track.scrollLeft = scrollLeft - walk;
+});
+
+// Para touch (celular)
+track.addEventListener("touchstart", e => {
+  isDown = true;
+  startX = e.touches[0].pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.animationPlayState = 'paused';
+});
+
+track.addEventListener("touchend", () => { isDown = false; track.style.animationPlayState = 'running'; });
+track.addEventListener("touchmove", e => {
+  if(!isDown) return;
+  const x = e.touches[0].pageX - track.offsetLeft;
+  const walk = (x - startX);
+  track.scrollLeft = scrollLeft - walk;
+});
+
   </script>
 
 </body>
 </html>
+
 
