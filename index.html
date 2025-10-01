@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Verde</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      background: black;
+    }
+
+    header {
+      background-color: rgba(0, 128, 0, 0.8);
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      text-align: center;
+      color: white;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      opacity: 0.6; 
+      transform: translateY(0);
+      transition: transform 0.2s linear;
+    }
+
+    .hero h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(22px, 5vw, 40px);
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 15px 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* CONTEÚDO CENTRALIZADO */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px;
+      line-height: 1.8;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    main h2 {
+      color: #90ee90;
+      margin-top: 40px;
+    }
+
+    ul {
+      margin: 15px auto;
+      text-align: left;
+      max-width: 700px;
+    }
+
+    /* --- CARROSSEL --- */
+    .gallery {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 200px;
+      margin: 40px auto;
+    }
+
+    .gallery-track {
+      display: flex;
+      animation: slideLeft 20s linear infinite;
+    }
+
+    .gallery img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid green;
+      margin-right: 20px;
+    }
+
+    @keyframes slideLeft {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    footer {
+      background-color: rgba(0, 128, 0, 0.8);
+      text-align: center;
+      padding: 15px;
+      font-weight: bold;
+      color: white;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Folhas caindo */
+    .leaf {
+      position: fixed;
+      font-size: 28px;
+      animation: fallDiag linear forwards;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fallDiag {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+      50% { transform: translate(40vw, 50vh) rotate(180deg); }
+      100% { transform: translate(80vw, 100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* --- ANIMAÇÕES DE SCROLL --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .zoom-in {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.8s ease-out;
+    }
+
+    .zoom-in.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Simulador */
+    .simulator {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border: 1px solid #90ee90;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    .simulator input[type=range] {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    /* Linha do Tempo */
+    .timeline button {
+      margin: 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #90ee90;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    .timeline p {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #c0ffc0;
+    }
+
+    /* Jogo de Reciclagem */
+    .game {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    #items {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .item {
+      font-size: 40px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    #bins {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .bin {
+      border: 2px solid #90ee90;
+      border-radius: 10px;
+      padding: 10px;
+      width: 100px;
+      text-align: center;
+      font-size: 20px;
+      min-height: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    Aurora Verde
+  </header>
+
+  <section class="hero">
+    <img src="6966201-tropical-verde-folhas-em-fundo-escuro-natureza-verao-floresta-planta-conceito-foto (1).jpg" alt="Sustentabilidade">
+    <h1>não existem problemas ambientais, apenas sintomas ambientais de problemas humanos</h1>
+  </section>
+
+  <main>
+    <!-- Conteúdo didático completo -->
+    <h2 class="fade-in">Mudanças Climáticas e Geração de Lixo</h2>
+    <p class="fade-in">
+      Nos últimos anos, as condições climáticas têm se intensificado em todo o mundo. Fenômenos como ondas de calor, secas prolongadas, enchentes e tempestades mais violentas são cada vez mais frequentes.  
+      Ao mesmo tempo, o aumento no consumo e a produção excessiva de resíduos estão gerando uma quantidade alarmante de lixo, grande parte não reciclável. Esse cenário traz sérias consequências para os ecossistemas e para a qualidade de vida humana.
+    </p>
+
+    <h2 class="fade-in">Impactos das Mudanças Climáticas</h2>
+    <ul class="fade-in">
+      <li>Aumento da temperatura média global 🌡️</li>
+      <li>Derretimento das calotas polares e elevação do nível do mar 🌊</li>
+      <li>Secas e desertificação em várias regiões 🌵</li>
+      <li>Tempestades, furacões e enchentes mais intensos ⛈️</li>
+      <li>Extinção de espécies e perda de biodiversidade 🐾</li>
+    </ul>
+
+    <h2 class="fade-in">Formas de Ser Sustentável</h2>
+    <ul class="fade-in">
+      <li>Reduzir, reutilizar e reciclar materiais no dia a dia.</li>
+      <li>Evitar o uso de plásticos descartáveis e optar por produtos duráveis.</li>
+      <li>Economizar energia elétrica e água em casa e no trabalho.</li>
+      <li>Adotar meios de transporte menos poluentes, como bicicletas ou transporte coletivo.</li>
+      <li>Valorizar empresas e produtos comprometidos com práticas ambientais.</li>
+    </ul>
+
+    <h2 class="fade-in">O que é Sustentabilidade?</h2>
+    <ul class="fade-in">
+      <li><b>Ambiental:</b> preservação da natureza e dos recursos naturais.</li>
+      <li><b>Social:</b> qualidade de vida, saúde e bem-estar para todos.</li>
+      <li><b>Econômico:</b> crescimento equilibrado sem exploração excessiva.</li>
+    </ul>
+
+    <h2 class="fade-in">Fontes de Energia Renováveis</h2>
+    <ul class="fade-in">
+      <li><b>Energia Solar:</b> utiliza a luz do sol para gerar eletricidade de forma limpa.</li>
+      <li><b>Energia Eólica:</b> aproveita a força dos ventos por meio de turbinas.</li>
+      <li><b>Energia Hidrelétrica:</b> produz eletricidade a partir da força da água em movimento.</li>
+      <li><b>Biomassa:</b> converte resíduos orgânicos em energia.</li>
+      <li><b>Geotérmica:</b> utiliza o calor proveniente do interior da Terra.</li>
+    </ul>
+
+    <h2 class="fade-in">Dicas Sustentáveis para o Dia a Dia</h2>
+    <ul class="fade-in">
+      <li>Leve sua própria garrafa de água reutilizável 💧</li>
+      <li>Prefira lâmpadas de LED, que gastam menos energia 💡</li>
+      <li>Descarte pilhas e baterias em pontos de coleta adequados 🔋</li>
+      <li>Troque o carro por bicicleta ou transporte coletivo 🚲</li>
+      <li>Compre de produtores locais e reduza a emissão de carbono 🛒</li>
+    </ul>
+
+    <h2 class="fade-in">Curiosidades Ambientais</h2>
+    <ul class="fade-in">
+      <li>Uma árvore adulta pode absorver até 150 kg de CO₂ por ano 🌳</li>
+      <li>O Brasil possui a maior biodiversidade do planeta 🐒</li>
+      <li>Cerca de 8 milhões de toneladas de plástico chegam aos oceanos todos os anos 🐠</li>
+      <li>A energia solar é hoje a fonte de energia que mais cresce no mundo ☀️</li>
+    </ul>
+
+    <!-- CARROSSEL DE IMAGENS -->
+    <div class="gallery zoom-in">
+      <div class="gallery-track">
+        <img src="foto_divulgacao_2.webp" alt="Reciclagem">
+        <img src="93f936603d6b113b1592a00aaa359fec_16503099427267_194255897.jpg" alt="Natureza">
+        <img src="images.jfif" alt="Energia Renovável">
+        <img src="images (1).jfif" alt="Sustentabilidade">
+        <img src="poluicao-hidrica.webp" alt="Reciclagem">
+        <img src="images (2).jfif" alt="Natureza">
+        <img src="coletaseletiva-cke.webp" alt="Energia Renovável">
+        <img src="foto_divulgacao_2.webp" alt="Sustentabilidade">
+      </div>
+    </div>
+
+    <!-- Linha do Tempo Interativa -->
+    <h2 class="fade-in">Linha do Tempo Ambiental</h2>
+    <div class="timeline fade-in">
+      <button onclick="showEvent(0)">1972 🌍</button>
+      <button onclick="showEvent(1)">1992 🌱</button>
+      <button onclick="showEvent(2)">2015 🌐</button>
+      <button onclick="showEvent(3)">2025 🚀</button>
+      <p id="timelineText">Clique em um ano para ver o evento.</p>
+    </div>
+
+    <!-- Jogo da Reciclagem -->
+    <h2 class="fade-in">Jogo da Reciclagem ♻️</h2>
+    <p class="fade-in">Arraste o item até a lixeira correta:</p>
+    <div class="game fade-in">
+      <div id="items">
+        <div draggable="true" class="item">🍾</div>
+        <div draggable="true" class="item">📰</div>
+        <div draggable="true" class="item">🥤</div>
+        <div draggable="true" class="item">🍌</div>
+      </div>
+      <div id="bins">
+        <div class="bin" data-type="vidro">🟩 Vidro</div>
+        <div class="bin" data-type="papel">🟦 Papel</div>
+        <div class="bin" data-type="plastico">🟥 Plástico</div>
+        <div class="bin" data-type="organico">🟫 Orgânico</div>
+      </div>
+      <p id="gameResult"></p>
+    </div>
+
+    <!-- Simulador de economia de água -->
+    <h2 class="fade-in">Simule Sua Economia Sustentável</h2>
+    <p class="fade-in">Arraste o controle e veja o impacto da economia de água:</p>
+    <div class="simulator fade-in">
+      <label for="aguaRange">Litros economizados por pessoa/dia: </label>
+      <input type="range" id="aguaRange" min="1" max="50" value="10">
+      <span id="aguaValue">10</span> L/dia
+      <p id="aguaImpacto"></p>
+    </div>
+  </main>
+
+  <footer>
+    Aurora Verde © 2025 - Todos os direitos reservados
+  </footer>
+
+  <script>
+    /* --- Folhas caindo --- */
+    const leaves = ["🍃","🍂","🍁"];
+    function createLeaf() {
+      const leaf = document.createElement("div");
+      leaf.classList.add("leaf");
+      leaf.innerText = leaves[Math.floor(Math.random() * leaves.length)];
+      const fromTop = Math.random() > 0.5;
+      if (fromTop) {
+        leaf.style.left = Math.random() * window.innerWidth * 0.3 + "px";
+        leaf.style.top = -(50 + Math.random() * 200) + "px";
+      } else {
+        leaf.style.left = -(50 + Math.random() * 100) + "px";
+        leaf.style.top = Math.random() * window.innerHeight * 0.3 + "px";
+      }
+      leaf.style.fontSize = (20 + Math.random() * 25) + "px";
+      const duration = 12 + Math.random() * 10; 
+      leaf.style.animationDuration = duration + "s";
+      document.body.appendChild(leaf);
+      setTimeout(() => { leaf.remove(); }, duration * 1000 + 1000);
+    }
+    setInterval(createLeaf, 4000);
+
+    /* --- Parallax no Hero --- */
+    const heroImg = document.querySelector('.hero img');
+    window.addEventListener('scroll', () => {
+      let offset = window.scrollY * 0.3; 
+      heroImg.style.transform = `translateY(${offset}px)`;
+    });
+
+    /* --- Fade-in e Zoom-in --- */
+    const animElements = document.querySelectorAll('.fade-in, .zoom-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    animElements.forEach(el => observer.observe(el));
+
+    /* --- Simulação de economia --- */
+    const range = document.getElementById("aguaRange");
+    const value = document.getElementById("aguaValue");
+    const impacto = document.getElementById("aguaImpacto");
+
+    function calcularImpacto() {
+      const litros = range.value;
+      value.textContent = litros;
+      const populacao = 100_000_000;
+      const economia = litros * 365 * populacao;
+      impacto.textContent = `Se cada pessoa economizar ${litros} litros/dia, seriam poupados aproximadamente ${economia.toLocaleString("pt-BR")} litros de água em 1 ano! 💧`;
+    }
+
+    range.addEventListener("input", calcularImpacto);
+    calcularImpacto();
+
+    /* --- Linha do Tempo --- */
+    const timelineEvents = [
+      "1972 🌍 - Conferência de Estocolmo: primeiro grande encontro sobre meio ambiente.",
+      "1992 🌱 - Eco-92 no Rio de Janeiro: criação da Agenda 21.",
+      "2015 🌐 - Acordo de Paris: compromisso mundial para reduzir emissões.",
+      "2025 🚀 - Expansão global das energias renováveis."
+    ];
+    function showEvent(index) {
+      document.getElementById("timelineText").innerText = timelineEvents[index];
+    }
+
+    /* --- Jogo da Reciclagem --- */
+    const items = document.querySelectorAll(".item");
+    const bins = document.querySelectorAll(".bin");
+    const result = document.getElementById("gameResult");
+
+    items.forEach(item => {
+      item.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text", item.innerText);
+      });
+    });
+
+    bins.forEach(bin => {
+      bin.addEventListener("dragover", e => e.preventDefault());
+      bin.addEventListener("drop", e => {
+        e.preventDefault();
+        const emoji = e.dataTransfer.getData("text");
+        let correct = false;
+
+        if (emoji === "🍾" && bin.dataset.type === "vidro") correct = true;
+        if (emoji === "📰" && bin.dataset.type === "papel") correct = true;
+        if (emoji === "🥤" && bin.dataset.type === "plastico") correct = true;
+        if (emoji === "🍌" && bin.dataset.type === "organico") correct = true;
+
+        result.innerText = correct ? "✅ Acertou! Bom trabalho!" : "❌ Ops, tente outra lixeira!";
+      });
+    });
+  </script>
+
+</body>
+</html>
